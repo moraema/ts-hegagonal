@@ -9,20 +9,23 @@ const userAppService = new UserAplication(mysqlRepository);
 
 export class UserController {
 
+  static createUser(req: Request, res: Response): void {
+    const newUser: User = req.body;
 
-  static async createUser (req: Request, res: Response): Promise<void>{
-    try {
-       const newUser: User = req.body;
-       await userAppService.createUser(newUser);
-       res.status(201).json({
-           message: 'El usuario se creo exitosamente'
-       });
-    } catch ( error ) {
-       res.status(500).json({
-           error:'Hubo un error al crear el usuario'
-       });
-     }
-    }
+    userAppService.createUser(newUser)
+        .then(() => {
+            res.status(201).json({
+                message: 'El usuario se creó exitosamente'
+            });
+        })
+        .catch(error => {
+            console.error('Hubo un error al crear el usuario:', error);
+            res.status(500).json({
+                error: 'Hubo un error al crear el usuario'
+            });
+        });
+}
+
 }
 
 

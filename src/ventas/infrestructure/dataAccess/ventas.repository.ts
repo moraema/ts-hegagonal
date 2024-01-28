@@ -2,22 +2,27 @@ import { query } from "../../../database/db.config";
 import { Ventas } from "../../dominio/entities/ventas";
 import { VentasRepository } from "../../dominio/repository/ventas.repository";
 
-export class ventaRepository implements VentasRepository{
+export class VentaRepository implements VentasRepository{
 
-     async createVenta(ventas: Ventas): Promise<any> {
-      const sql = 'INSERT INTO venta (descripcion, subtotal, total, id_cliente) VALUES (?, ?, ?, ?)';
-      const params = [ventas.descripcion, ventas.subtotal, ventas.total, ventas.id_cliente];
-  
-      try {
-        const result = await query(sql, params);
-        return result;
-         } catch (error) {
-          console.log('Error al crear la venta en MySQL: ', error);
-         }
-    }
+  createVenta(ventas: Ventas): Promise<any> {
+    return new Promise((resolve, reject) => {
+        const sql = 'INSERT INTO venta (descripcion, subtotal, total, id_cliente) VALUES (?, ?, ?, ?)';
+        const params = [ventas.descripcion, ventas.subtotal, ventas.total, ventas.id_cliente];
+
+        query(sql, params)
+            .then(result => {
+                resolve(result);
+            })
+            .catch(error => {
+                console.log('Error al crear la venta en MySQL: ', error);
+                reject(error);
+            });
+    });
+}
 
 
-    async getVentas(id_cliente: number): Promise<Ventas[] | null> {
+
+    async getVentas(id_cliente: number): Promise<Ventas[]> {
       const sql = 'SELECT * FROM venta WHERE id_cliente = ?';
       const params: any[] = [id_cliente];
 
