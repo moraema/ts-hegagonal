@@ -13,7 +13,7 @@ const PORT = '3000';
 
 
 let corsOptions = {
-  origin: '*' // En este caso puede la dirección real de tu pagina web, en este caso como no tenemos por el momento lo dejamos asi 
+  origin: '*' // Direcion de mi pagina web
 };
 app.use(cors(corsOptions));
 
