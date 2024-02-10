@@ -4,6 +4,7 @@ import { UserRepository } from '../../dominio/repository/user.repository';
 
 
 
+
 export class MysqlRepository implements UserRepository{
 
   
@@ -33,5 +34,19 @@ export class MysqlRepository implements UserRepository{
         throw new Error('Error al crear usuario');
       }
     }
+
+
+     async getById(userId: number): Promise <User[]> {
+      const sql = 'SELECT usuario, contraseña FROM usuarios WHERE id = ?'
+      const params: any[] = [userId];
+
+      try {
+        const [result]: any = await query(sql, params);
+        return result;
+      } catch ( error ) {
+        console.log('Hubo un error al obtener al usuario');
+        throw new Error('Error al obtener al usuario');
+      }
+     }
   }
   

@@ -19,8 +19,8 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
-app.use('/', UserRouter);
-app.use('/', VentasRouter);
+app.use('/usuarios', UserRouter);
+app.use('/ventas', VentasRouter);
 
 app.listen(PORT, () => {
   console.log('Servidor escuchado en el puerto', PORT)

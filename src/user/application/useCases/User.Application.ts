@@ -12,4 +12,8 @@ export class UserAplication {
         return await this.userRepository.deleteUser(UserId);
         
     }
+    async getById(UserId: number): Promise<User[] | null>{
+        return await this.userRepository.getById(UserId);
+        
+    }
 }

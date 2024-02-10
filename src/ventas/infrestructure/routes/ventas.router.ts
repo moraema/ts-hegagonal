@@ -7,9 +7,9 @@ import { EliminarController } from "../controller/delete.ventas";
 export const router = express.Router();
 
 
-router.post('/ventas', VentasController.createVenta);
-router.get('/ventas/:id', ObtenerController.getVentas);
-router.delete('/ventas/:id', EliminarController.deleteVentas);
+router.post('/', VentasController.createVenta);
+router.get('/:id', ObtenerController.getVentas);
+router.delete('/:id', EliminarController.deleteVentas);
 
 export default router;
    
